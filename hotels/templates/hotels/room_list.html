@@ -1,0 +1,41 @@
+{% extends 'mysite/index.html' %}
+{% block content %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for room in rooms %}
+        <div class="bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition-all overflow-hidden">
+            
+            <div class="h-1.5 {% if room.is_available %}bg-green-500{% else %}bg-red-600{% endif %}"></div>
+
+            <div class="p-5">
+                <div class="flex justify-between items-start mb-3">
+                    <div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-red-600 block mb-1">
+                            {{ room.category.room_type }}
+                        </span>
+                        <h3 class="text-lg font-bold text-gray-900">Room {{ room.room_number }}</h3>
+                    </div>
+                    
+                    <div>
+                        {% if room.is_available %}
+                            <span class="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-full uppercase">Available</span>
+                        {% else %}
+                            <span class="bg-red-50 text-red-700 text-[10px] font-bold px-2 py-1 rounded-full uppercase">Occupied</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="py-3 border-t border-gray-50">
+                    <p class="text-sm text-gray-500">{{ room.category.description }}</p>
+                </div>
+
+                <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+                    <div class="flex flex-col">
+                        <span class="text-xs text-gray-400 font-medium">Rate</span>
+                        <span class="text-xl font-bold text-gray-900">₱{{ room.category.price_per_night }}</span>
+                   </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>     
+{% end block %}
