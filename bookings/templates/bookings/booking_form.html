@@ -1,0 +1,80 @@
+{% extends "mysite/index.html" %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto mt-8 mb-4 px-4 md:px-0">
+    <a href="javascript:history.back()" 
+       class="inline-flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 hover:text-red-600 transition-all duration-300 group">
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             class="h-4 w-4 mr-2 transform group-hover:-translate-x-1 transition-transform duration-300" 
+             fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span>Go Back</span>
+    </a>
+</div>
+
+<div class="max-w-2xl mx-auto my-10 bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+    <div class="bg-gray-900 p-8 text-white">
+        <span class="text-red-500 font-bold uppercase tracking-widest text-xs">Step 1: Reservation Details</span>
+        <h2 class="text-3xl font-black italic uppercase">Room {{ room.number }}</h2>
+        <p class="text-gray-400 mt-1">{{ room.category.title }} — ₱{{ room.category.price_per_night }} / night</p>
+    </div>
+
+    <form method="POST" class="p-8 space-y-6">
+        {% csrf_token %}
+        
+        <input type="hidden" name="room_id" value="{{ room.id }}">
+
+        <div>
+            <label class="block text-sm font-bold text-gray-700 uppercase mb-2">Email</label>
+            {{ form.email }}
+            {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                    <p class="text-red-600 text-xs font-bold mt-1 italic">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-sm font-bold text-gray-700 uppercase mb-2">Check-In Date</label>
+                {{ form.check_in }}
+                {% if form.check_in.errors %}
+                    {% for error in form.check_in.errors %}
+                        <p class="text-red-600 text-xs font-bold mt-1 italic">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div>
+                <label class="block text-sm font-bold text-gray-700 uppercase mb-2">Check-Out Date</label>
+                {{ form.check_out }}
+                {% if form.check_out.errors %}
+                    {% for error in form.check_out.errors %}
+                        <p class="text-red-600 text-xs font-bold mt-1 italic">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+        {% if form.non_field_errors %}
+            <div class="p-4 mb-4 bg-red-50 border-l-4 border-red-600 text-red-700 text-sm rounded-r-lg">
+                <p class="font-bold mb-1 uppercase text-xs">Reservation Error:</p>
+                <ul class="list-disc ml-5">
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <div class="pt-6 border-t border-gray-100">
+            <button type="submit" class="w-full bg-red-600 text-white font-black uppercase tracking-widest py-4 rounded-xl hover:bg-red-700 hover:shadow-2xl hover:-translate-y-1 active:translate-y-0 transition-all duration-300">
+                Continue to Payment
+            </button>
+            <a href="{% url 'room-list' %}" class="block text-center mt-4 text-gray-400 text-[10px] font-black uppercase tracking-widest hover:text-gray-600 transition-colors">
+                Cancel Transaction
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

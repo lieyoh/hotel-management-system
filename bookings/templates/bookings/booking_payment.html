@@ -1,0 +1,48 @@
+{% extends "mysite/index.html" %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto mt-8 mb-4 px-4 md:px-0">
+    <a href="javascript:history.back()" 
+       class="inline-flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 hover:text-red-600 transition-all duration-300 group">
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             class="h-4 w-4 mr-2 transform group-hover:-translate-x-1 transition-transform duration-300" 
+             fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span>Go Back</span>
+    </a>
+</div>
+<div class="max-w-lg mx-auto my-12 bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
+    <div class="p-8 text-center bg-gray-900 text-white">
+        <h2 class="text-2xl font-black uppercase italic">Secure Your Room</h2>
+        <p class="text-gray-400 text-sm mt-2">Booking ID: #{{ booking.id }}</p>
+    </div>
+
+    <div class="p-8">
+        <div class="space-y-4 mb-8">
+            <div class="flex justify-between text-gray-600">
+                <span>Room {{ booking.room.number }} Total Stay:</span>
+                <span class="font-bold">₱{{ booking.total_price }}</span>
+            </div>
+            <div class="flex justify-between items-center p-5 bg-red-50 rounded-2xl border-2 border-dashed border-red-200">
+                <div>
+                    <span class="block text-red-600 font-black uppercase text-xs">Reservation Fee</span>
+                    <span class="text-xs text-red-400">20% of total price</span>
+                </div>
+                <span class="text-3xl font-black text-red-600">₱{{ booking.reservation_fee }}</span>
+            </div>
+        </div>
+
+        <form action="#" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="w-full bg-green-600 text-white font-black uppercase tracking-widest py-4 rounded-xl hover:bg-green-700 transition-all shadow-lg hover:scale-[1.02]">
+                Pay ₱{{ booking.reservation_fee }} Now
+            </button>
+        </form>
+        
+        <p class="text-center mt-6 text-[10px] text-gray-400 uppercase font-bold tracking-widest">
+            Non-Refundable Deposit Required
+        </p>
+    </div>
+</div>
+{% endblock %}

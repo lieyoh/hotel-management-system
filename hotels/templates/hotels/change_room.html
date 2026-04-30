@@ -1,0 +1,31 @@
+{% extends "mysite/index.html" %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto mt-8 mb-4 px-4 md:px-0">
+    <a href="javascript:history.back()" 
+       class="inline-flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 hover:text-red-600 transition-all duration-300 group">
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             class="h-4 w-4 mr-2 transform group-hover:-translate-x-1 transition-transform duration-300" 
+             fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span>Go Back</span>
+    </a>
+</div>
+<div class="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+    <h2 class="text-2xl font-bold mb-6">Edit Room {{ room.number }}</h2>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <div class="space-y-4 mt-2">
+            {{ form.as_p }} </div>
+        
+        <div class="mt-8 flex gap-4">
+            <button type="submit" class="bg-red-600 text-white px-6 py-2 rounded-xl font-bold">
+                Save Changes
+            </button>
+            <a href="{% url 'room-list' %}" class="px-6 py-2 text-gray-500 font-medium">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
