@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hotel MS{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom scrollbar para sa sidebar */
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #1f2937; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+    {% if  user.is_authenticated %}
+    <div class="flex flex-col md:flex-row">
+        <aside class="w-full md:w-64 bg-gray-900 md:min-h-screen text-white">
+            <div class="p-6 text-2xl font-bold text-blue-400 border-b border-gray-800">
+                <i class="fa-solid fa-hotel mr-2"></i> HMS Pro
+            </div>
+            
+            <nav class="mt-6 custom-scrollbar overflow-y-auto">
+                <div class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">Main</div>
+                <a href="{% url 'users:admin_dashboard' %}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                    <i class="fa-solid fa-gauge w-5 mr-3"></i> Dashboard
+                </a>
+                
+                <div class="px-4 py-2 mt-4 text-xs font-semibold text-gray-500 uppercase">Management</div>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                    <i class="fa-solid fa-bed w-5 mr-3"></i> Rooms
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                    <i class="fa-solid fa-calendar-check w-5 mr-3"></i> Bookings
+                </a>
+                
+                <a href="#" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                    <i class="fa-solid fa-users w-5 mr-3"></i> Guests
+                </a>
+
+                {% if request.user.role == 'ADMIN' %}
+                <a href="{% url 'users:create_user' %}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-blue-600 hover:text-white transition group">
+                    <i class="fa-solid fa-user-plus w-5 mr-3 text-gray-400 group-hover:text-white"></i>
+                    <span>Create User</span>
+                </a>
+
+                <a href="{% url 'users:user_list' %}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-red-600 hover:text-white transition group">
+                    <i class="fa-solid fa-user-slash w-5 mr-3 text-gray-400 group-hover:text-white"></i>
+                    <span>Management</span>
+                </a>
+                {% endif %}
+
+                <div class="px-4 py-2 mt-4 text-xs font-semibold text-gray-500 uppercase">System</div>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                    <i class="fa-solid fa-gear w-5 mr-3"></i> Settings
+                </a>
+                <form action="{% url 'users:logout' %}" method="POST" class="mt-4 px-6">
+                    {% csrf_token %}
+                    <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded text-sm transition">
+                        <i class="fa-solid fa-right-from-bracket mr-2"></i> Logout
+                    </button>
+                </form>
+            </nav>
+        </aside>
+
+        <main class="flex-1">
+            <header class="bg-white shadow-sm py-4 px-8 flex justify-between items-center">
+                <div class="text-gray-600 font-medium">
+                    Welcome back, <span class="text-blue-600 font-bold">{{ request.user.username }}</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">{{ request.user.role }}</span>
+                    <img src="https://ui-avatars.com/api/?name={{ request.user.username }}&background=0D8ABC&color=fff" class="w-8 h-8 rounded-full" alt="profile">
+                </div>
+            </header>
+
+            <section class="p-8">
+                {% block content %}
+                {% endblock %}
+            </section>
+        </main>
+    </div>
+
+    {% else %}
+        <a href="{% url 'users:login' %}">Login</a>
+    {% endif %}
+
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
