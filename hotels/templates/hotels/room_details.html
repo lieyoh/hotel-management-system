@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="pt-6 border-t border-gray-100 flex justify-between items-center">
-                <a href="{% url 'room-list' %}" class="w-full bg-red-600 text-white font-black uppercase tracking-widest py-4 rounded-xl hover:bg-red-700 transition-all shadow-lg text-center">
+                <a href="{% url 'bookings:booking-form' %}?room_id={{ room.id }}" class="w-full bg-red-600 text-white font-black uppercase tracking-widest py-4 rounded-xl hover:bg-red-700 transition-all shadow-lg text-center">
                     Reserve Now
                 </a>
             </div>

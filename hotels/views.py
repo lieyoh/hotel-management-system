@@ -6,7 +6,6 @@ from .models import Rooms
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 from .forms import ChangeRoom, AddRoom
-from django.contrib import messages
 
 
 class RoomList(ListView):
@@ -125,6 +124,7 @@ def add_room(request):
             messages.success(request, "New room added to the inventory!")
             return redirect('room-list')
         else:
+            form.add_error(None, 'Please check your input')
             messages.error(
                 request, "Invalid data. Please check the red text below.")
     else:
