@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookings.apps.BookingsConfig',
     'hotels.apps.HotelsConfig',
+    'hr.apps.HrConfig',
     'mysite.apps.MysiteConfig',
     'payments.apps.PaymentsConfig',
     'users.apps.UsersConfig',
