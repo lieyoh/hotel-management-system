@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Manager Dashboard{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 font-sans">
+
+    {% if user.is_authenticated and user.role == 'MANAGER' %}
+    <div class="flex min-h-screen">
+        <aside class="w-64 bg-indigo-900 text-white flex-shrink-0">
+            <div class="p-6 text-xl font-bold border-b border-indigo-800">
+                <i class="fa-solid fa-clipboard-list mr-2"></i> HMS Manager
+            </div>
+            
+            <nav class="mt-6">
+                <a href="{% url 'users:manager_dashboard' %}" class="flex items-center px-6 py-3 hover:bg-indigo-800 transition">
+                    <i class="fa-solid fa-chart-line w-5 mr-3"></i> Overview
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 hover:bg-indigo-800 transition">
+                    <i class="fa-solid fa-list-check w-5 mr-3"></i> Task Reports
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 hover:bg-indigo-800 transition">
+                    <i class="fa-solid fa-users-gear w-5 mr-3"></i> Staff Attendance
+                </a>
+                
+                <div class="mt-10 px-6">
+                    <form action="{% url 'users:logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="w-full bg-indigo-700 hover:bg-red-600 text-white py-2 rounded transition text-sm">
+                            <i class="fa-solid fa-power-off mr-2"></i> Logout
+                        </button>
+                    </form>
+                </div>
+            </nav>
+        </aside>
+
+        <div class="flex-1">
+            <header class="bg-white shadow-sm p-4 flex justify-between items-center px-8">
+                <h1 class="text-lg font-semibold text-slate-700">Management Console</h1>
+                <div class="flex items-center gap-4">
+                    <span class="text-sm text-slate-500 italic">Logged in as Manager</span>
+                    <div class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold">
+                        {{ user.username|first|upper }}
+                    </div>
+                </div>
+            </header>
+
+            <main class="p-8">
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+    {% else %}
+    <div class="flex items-center justify-center min-h-screen bg-gray-100">
+        <div class="bg-white p-8 rounded shadow-md text-center">
+            <h1 class="text-2xl font-bold text-red-600 mb-4">403 - Unauthorized</h1>
+            <p class="text-gray-600 mb-6">Wala kang permiso na makita ang page na ito.</p>
+            <a href="{% url 'login' %}" class="bg-indigo-600 text-white px-6 py-2 rounded">Bumalik sa Login</a>
+        </div>
+    </div>
+    {% endif %}
+
+</body>
+</html>

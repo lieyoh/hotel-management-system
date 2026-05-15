@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta  
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,7 +44,17 @@ INSTALLED_APPS = [
     'mysite.apps.MysiteConfig',
     'payments.apps.PaymentsConfig',
     'users.apps.UsersConfig',
+    'axes',
+    'rest_framework',
 
+]
+
+AUTH_USER_MODEL = 'users.User' # customer user  
+
+AUTHENTICATION_BACKENDS = [
+    # Axes backend muna bago ang default ng Django
+    'axes.backends.AxesStandaloneBackend',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'axes.middleware.AxesMiddleware', # axes
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -61,7 +73,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,3 +134,31 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Ito ang nagtuturo sa Django na tumingin sa root static folder
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+LOGIN_REDIRECT_URL = 'users:login_success' # after mag login dito pupunta
+LOGIN_URL = 'users:login' # pag di nakalogin mapupunta ka sa login page pag inacces mo ung specific endpoint na walng permission login_required
+# LOGOUT_REDIRECT_URL = 'users:login' #pag nag logout diretso ka sa login page
+
+# --- AXES CONFIGURATION ---
+AXES_FAILURE_LIMIT = 3               # Limit sa 3 attempts
+AXES_COOLOFF_TIME = timedelta(minutes=30)              # Lockout duration (sa oras, e.g., 1 hour)
+AXES_LOCKOUT_TEMPLATE = 'registration/lockout.html' # Custom page para sa locked users
+AXES_RESET_ON_SUCCESS = True         # I-reset ang counter pag nag-login nang tama # block nya lng ung specific username
+# Pinagsasama nito ang Username + IP. 
+# Ibig sabihin: Iba-block lang ang computer mo PARA SA ACCOUNT NA IYON.
+# Makakapag-login ka pa rin sa Admin gamit ang parehong computer.
+AXES_LOCKOUT_PARAMETERS = [["username", "ip_address"]]
+AXES_LOCKOUT_BY_COMBINATION_USER_AND_IP = True
+
+
+# --- DJANGO REST-FRAMEWORK ---
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+}

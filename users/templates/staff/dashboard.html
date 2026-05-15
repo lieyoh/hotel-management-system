@@ -1,0 +1,147 @@
+{% extends 'staff/base.html' %}
+
+{% block title %}Staff Dashboard | HMS{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h2 class="text-2xl font-bold text-gray-800">Operational Overview</h2>
+    <p class="text-gray-500">Narito ang status ng mga kwarto at bisita para sa araw na ito.</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-emerald-100">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm text-gray-500 font-medium uppercase">Arrivals Today</p>
+                <h3 class="text-2xl font-bold text-gray-800">12</h3>
+            </div>
+            <div class="bg-emerald-100 p-3 rounded-lg">
+                <i class="fa-solid fa-plane-arrival text-emerald-600 text-xl"></i>
+            </div>
+        </div>
+        <div class="mt-4 flex items-center text-sm">
+            <span class="text-emerald-500 font-bold">5 Guests</span>
+            <span class="ml-2 text-gray-400 text-xs">Checked-in already</span>
+        </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-emerald-100">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm text-gray-500 font-medium uppercase">Occupied Rooms</p>
+                <h3 class="text-2xl font-bold text-gray-800">45/60</h3>
+            </div>
+            <div class="bg-blue-100 p-3 rounded-lg">
+                <i class="fa-solid fa-bed text-blue-600 text-xl"></i>
+            </div>
+        </div>
+        <div class="mt-4 flex items-center text-sm">
+            <span class="text-blue-500 font-bold">75%</span>
+            <span class="ml-2 text-gray-400 text-xs">Occupancy rate</span>
+        </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-emerald-100">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm text-gray-500 font-medium uppercase">Housekeeping</p>
+                <h3 class="text-2xl font-bold text-gray-800">8</h3>
+            </div>
+            <div class="bg-orange-100 p-3 rounded-lg">
+                <i class="fa-solid fa-broom text-orange-600 text-xl"></i>
+            </div>
+        </div>
+        <div class="mt-4 flex items-center text-sm">
+            <span class="text-orange-500 font-bold">Needs Cleaning</span>
+            <span class="ml-2 text-gray-400 text-xs">Assign staff now</span>
+        </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow-sm border border-emerald-100">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm text-gray-500 font-medium uppercase">Recent Alerts</p>
+                <h3 class="text-2xl font-bold text-gray-800">3</h3>
+            </div>
+            <div class="bg-red-100 p-3 rounded-lg">
+                <i class="fa-solid fa-bell text-red-600 text-xl"></i>
+            </div>
+        </div>
+        <div class="mt-4 flex items-center text-sm">
+            <span class="text-red-500 font-bold">High Priority</span>
+            <span class="ml-2 text-gray-400 text-xs">Check notifications</span>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    
+    <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="p-6 border-b border-gray-50 flex justify-between items-center">
+            <h3 class="font-bold text-gray-800">Expected Guests Today</h3>
+            <button class="text-sm text-emerald-600 hover:underline">View All</button>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead class="bg-gray-50 text-gray-500 text-xs uppercase">
+                    <tr>
+                        <th class="px-6 py-4">Guest Name</th>
+                        <th class="px-6 py-4">Room Type</th>
+                        <th class="px-6 py-4">Status</th>
+                        <th class="px-6 py-4">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 text-sm">
+                    <tr>
+                        <td class="px-6 py-4 font-medium text-gray-800">Rizaldy Cruz</td>
+                        <td class="px-6 py-4 text-gray-500">Deluxe (Room 204)</td>
+                        <td class="px-6 py-4">
+                            <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs">Arriving</span>
+                        </td>
+                        <td class="px-6 py-4">
+                            <button class="bg-emerald-600 text-white px-3 py-1 rounded hover:bg-emerald-700 transition text-xs">Check-in</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 font-medium text-gray-800">Maria Clara</td>
+                        <td class="px-6 py-4 text-gray-500">Suite (Room 101)</td>
+                        <td class="px-6 py-4">
+                            <span class="px-2 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs">In-Room</span>
+                        </td>
+                        <td class="px-6 py-4">
+                            <button class="border border-gray-300 text-gray-600 px-3 py-1 rounded hover:bg-gray-50 transition text-xs">View Folio</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="space-y-6">
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+            <h3 class="font-bold text-gray-800 mb-4">Quick Tasks</h3>
+            <div class="space-y-4">
+                <label class="flex items-center space-x-3 cursor-pointer">
+                    <input type="checkbox" class="h-4 w-4 text-emerald-600 rounded">
+                    <span class="text-sm text-gray-600">Inventory check for toiletries</span>
+                </label>
+                <label class="flex items-center space-x-3 cursor-pointer">
+                    <input type="checkbox" class="h-4 w-4 text-emerald-600 rounded">
+                    <span class="text-sm text-gray-600">Update status of Room 305</span>
+                </label>
+                <label class="flex items-center space-x-3 cursor-pointer">
+                    <input type="checkbox" class="h-4 w-4 text-emerald-600 rounded" checked>
+                    <span class="text-sm text-gray-400 line-through">Notify manager for towel supplies</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="bg-emerald-600 p-6 rounded-xl shadow-lg text-white">
+            <h3 class="font-bold mb-2">Internal Announcement</h3>
+            <p class="text-xs text-emerald-100 mb-4">Staff meeting tomorrow at 9:00 AM regarding the upcoming long weekend peak.</p>
+            <button class="w-full bg-emerald-700 text-white py-2 rounded text-sm hover:bg-emerald-800 transition">Confirm Read</button>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
