@@ -128,9 +128,6 @@
 
 
                 {% if user.is_authenticated and user.is_staff %}
-                    <a href="#" class="text-gray-400 hover:text-gray-900 p-2" title="View Details">
-                        <i class="fa-solid fa-eye"></i>
-                    </a>
                     <a href="{% url 'change-room' room.id %}" class="bg-blue-50 text-blue-600 p-2 rounded-lg hover:bg-blue-600 hover:text-white transition-all" title="Change/Edit">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
